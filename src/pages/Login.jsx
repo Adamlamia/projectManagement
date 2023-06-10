@@ -12,7 +12,7 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   useEffect(() => {
     if (currentUser) {

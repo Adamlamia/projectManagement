@@ -9,10 +9,11 @@ const Navbar = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   return (
-    <div className="navbar fixed z-10 bg-base-100">
+    <div className="navbar bg-base-100">
+      {currentUser ? 
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -44,14 +45,13 @@ const Navbar = () => {
             <li>
               <a>About</a>
             </li>
-            {currentUser && (
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-            )}
+            <li>
+              <button onClick={handleLogout}>Logout</button>
+            </li>
           </ul>
         </div>
       </div>
+      : null}
       <div className="navbar-center">
         <a className="btn btn-ghost normal-case text-xl">Project Management</a>
       </div>
@@ -90,7 +90,7 @@ const Navbar = () => {
             </svg>
             <span className="badge badge-xs badge-primary indicator-item"></span>
           </div>
-        </button>
+        </button> 
       </div>
     </div>
   );

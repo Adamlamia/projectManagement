@@ -3,7 +3,7 @@ import ChatRoom from "../components/ChatRoom";
 
 const Dashboard = () => {
   return (
-    <div>test
+    <div>
       <ChatRoom/>
     </div>
   ) 

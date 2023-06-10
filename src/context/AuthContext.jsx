@@ -13,12 +13,11 @@ export const AuthProvider = ({children}) => {
     //signin with google
     const signinWithGoogle = () => {
         const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
-        
+        signInWithRedirect(auth, provider)
     }
 
     //signout
-    const logout = () => signOut(auth)
+    const logout = () => signOut(auth);
 
     const value = {
         currentUser,

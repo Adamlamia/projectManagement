@@ -30,6 +30,9 @@
   right: 22px;
   top: 20px;
   bottom: 69px;
+  
+  border-radius: 3%;
+  background-color: blueviolet;
 }
 
 .sendMessageContainer {

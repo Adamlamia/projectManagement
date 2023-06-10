@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import ChatRoom from "./components/ChatRoom";
 import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoute";
-import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
+import ChatRoom from "./components/ChatRoom";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (

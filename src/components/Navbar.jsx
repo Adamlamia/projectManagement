@@ -1,6 +1,18 @@
+import { UserAuth } from "../context/AuthContext";
+
 const Navbar = () => {
+  const { currentUser, logout } = UserAuth;
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar fixed z-10 bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -32,9 +44,11 @@ const Navbar = () => {
             <li>
               <a>About</a>
             </li>
-            <li>
-              <button>Logout</button>
-            </li>
+            {currentUser && (
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            )}
           </ul>
         </div>
       </div>

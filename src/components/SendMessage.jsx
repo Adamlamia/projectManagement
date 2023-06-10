@@ -1,12 +1,33 @@
+import { async } from "@firebase/util";
 import { useState } from "react"
+import { UserAuth } from "../context/AuthContext";
+import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
 
 
 const SendMessage = () => {
 const [value, setValue] = useState("");
-console.log(value);
+const {currentUser} = UserAuth
 
-const handleSendmessage = (e) => {
+const handleSendmessage = async (e) => {
   e.preventDefault();
+
+  if (value.trim() === "") {
+    alert("Enter Valid Message!")
+    return;
+  }
+
+  try {
+    const {uid, displayName, photoURL} = currentUser;
+    await addDoc(collection(db, "messages"), {
+      text: value,
+      name: displayName,
+      avatar: photoURL,
+      createAt: serverTimestamp(),
+      uid
+    })
+  } catch (error) {
+    console.log(error)
+  }
   console.log(value);
   setValue("");//make the textbox clean again
 }

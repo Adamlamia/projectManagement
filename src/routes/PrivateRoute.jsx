@@ -1,7 +1,8 @@
 import { Navigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const PrivateRoute = ({children}) => {
-  const currentUser = false;
+  const {currentUser} = UserAuth();
   
   if (!currentUser) {
     return <Navigate to="/" replace={true} />
@@ -9,4 +10,4 @@ const PrivateRoute = ({children}) => {
   return children
 }
 
-export default PrivateRoute
+export default PrivateRoute;

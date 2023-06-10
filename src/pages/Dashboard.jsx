@@ -3,10 +3,10 @@ import ChatRoom from "../components/ChatRoom";
 
 const Dashboard = () => {
   return (
-    <div>
-      <ChatRoom />
+    <div>test
+      <ChatRoom/>
     </div>
-  );
-};
+  ) 
+}
 
-export default Dashboard;
+export default Dashboard

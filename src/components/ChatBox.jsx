@@ -37,7 +37,7 @@ const ChatBox = () => {
   }, []);
 
   return (
-    <div className="chatBoxContainer">
+    <div className="textarea textarea-ghost">
       {messages.map((message) => (
         <Message key={message.id} message={message} />
       ))}

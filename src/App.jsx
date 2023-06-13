@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
-import ChatRoom from "./components/ChatRoom";
 import Dashboard from "./pages/Dashboard";
 
 function App() {

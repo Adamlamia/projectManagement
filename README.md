@@ -25,7 +25,7 @@ This project is a web application built using React, Vite, Tailwind CSS with Dai
 ## Usage
 
 1. Start the development server: `npm run dev`
-2. Open your browser and navigate to `http://localhost:3000` to see the application.
+2. Open your browser and navigate to `http://localhost:5173` to see the application.
 
 ## Deployment
 

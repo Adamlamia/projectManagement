@@ -4,12 +4,15 @@ import Material from "../components/Material";
 
 const Dashboard = () => {
   return (
-    <div class="columns-2 w-xl">
-      <div class="static w-3/4 h-full">
+    <div className="flex w-full mb-2 px-2">
+      <div className="flex grid h-full w-4/5 pl-2 card place-items-center">
         <TextEditor />
       </div>
-      <div class="static w-1/4 h-fit">
-        <Material />
+      <div className="divider px-2"></div>
+      <div className="grid h-screen w-1/5 card bg-base-300 rounded-b-lg place-items-center">
+        <div className="mx-2">
+          <Material />
+        </div>
       </div>
     </div>
   );

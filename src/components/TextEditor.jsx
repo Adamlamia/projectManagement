@@ -1,14 +1,28 @@
 import React from "react";
-import { BlockNoteEditor } from "@blocknote/core";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
+import {
+  BlockNoteView,
+  defaultReactSlashMenuItems,
+  useBlockNote,
+} from "@blocknote/react";
 import "@blocknote/core/style.css";
 
 const TextEditor = () => {
-  const editor = useBlockNote();
+  const newSlashMenuItems = defaultReactSlashMenuItems;
+
+  const editor = useBlockNote(
+    { slashMenuItems: newSlashMenuItems },
+    {
+      editorDOMAttributes: {
+        class: "textEditorStyle",
+      },
+    }
+  );
   return (
-    <textarea className="w-max textarea textarea-bordered" placeholder="Bio">
-      <BlockNoteView editor={editor} />
-    </textarea>
+    <div placeholder="Bio">
+      <div>
+        <BlockNoteView editor={editor} />
+      </div>
+    </div>
   );
 };
 

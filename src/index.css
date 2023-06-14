@@ -5,3 +5,7 @@
 .containerWrap {
   @apply container mx-auto max-w-max;
 }
+
+.textEditorStyle {
+  width: 12%;
+}

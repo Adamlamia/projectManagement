@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import Dashboard from "../pages/Dashboard";
 import ChatBox from "./ChatBox";
@@ -5,6 +6,7 @@ import SendMessage from "./SendMessage";
 
 const Navbar = () => {
   const { currentUser, logout } = UserAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -14,8 +16,12 @@ const Navbar = () => {
     }
   };
 
+  const navigateDashboard = () => {
+    navigate("/dashboard");
+  }
+
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100　z-auto">
       {currentUser ? (
         <div className="navbar-start">
           <div className="dropdown">
@@ -40,10 +46,9 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>
+                <button onClick={navigateDashboard}>
                   Dashboard
-                  <Dashboard />
-                </a>
+                </button>
               </li>
               <li>
                 <a>Project</a>
@@ -59,10 +64,9 @@ const Navbar = () => {
         </div>
       ) : null}
       <div className="navbar flex justify-center">
-        <a className="btn btn-ghost normal-case text-xl">
+        <button onClick={navigateDashboard} className="btn btn-ghost normal-case text-xl">
           Project Management
-          <Dashboard />
-        </a>
+        </button>
       </div>
       {currentUser ? (
         <div className="navbar-end">

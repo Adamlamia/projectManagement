@@ -6,39 +6,6 @@
   @apply container mx-auto max-w-max;
 }
 
-.chatRoomContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding: 20px 22px;
-  gap: 11px;
-
-  position: absolute;
-  width: 400px;
-  height: 600px;
-  right: 0px;
-  bottom: 0px;
-
-  border-radius: 3%;
-  background-color: #a3d7e2;
-}
-
-.chatBoxContainer {
-  position: absolute;
-  left: 22px;
-  right: 22px;
-  top: 20px;
-  bottom: 69px;
-  
-  border-radius: 3%;
-  background-color: blueviolet;
-}
-
-.sendMessageContainer {
-  position: absolute;
-  height: 38px;
-  left: 22px;
-  right: 22px;
-  bottom: 20px;
+.textEditorStyle {
+  width: 12%;
 }

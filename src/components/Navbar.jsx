@@ -3,6 +3,8 @@ import { UserAuth } from "../context/AuthContext";
 import Dashboard from "../pages/Dashboard";
 import ChatBox from "./ChatBox";
 import SendMessage from "./SendMessage";
+import Project from "../pages/Project";
+import Team from "../pages/Team";
 
 const Navbar = () => {
   const { currentUser, logout } = UserAuth();
@@ -18,6 +20,14 @@ const Navbar = () => {
 
   const navigateDashboard = () => {
     navigate("/dashboard");
+  }
+
+  const navigateProject = () => {
+    navigate("/project");
+  }
+
+  const navigateTeam = () => {
+    navigate("/team");
   }
 
   return (
@@ -51,11 +61,14 @@ const Navbar = () => {
                 </button>
               </li>
               <li>
-                <a>Project</a>
+                <button onClick={navigateProject}>
+                  Project
+                  </button>
               </li>
               <li>
-                <a>Team</a>
-              </li>
+              <button onClick={navigateTeam}>
+                  Team
+                  </button>              </li>
               {/* <li>
                 <button onClick={handleLogout}>Logout</button>
               </li> */}

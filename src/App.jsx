@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import Dashboard from "./pages/Dashboard";
+import Project from "./pages/Project";
+import Team from "./pages/Team";
 
 function App() {
   return (
@@ -19,6 +21,22 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/project"
+          element={
+            <PrivateRoute>
+              <Project />
+            </PrivateRoute>
+          }
+          />
+          <Route 
+            path="/team"
+            element={
+              <PrivateRoute>
+                <Team />
+              </PrivateRoute>
+            }
+          />
       </Routes>
     </AuthProvider>
   );

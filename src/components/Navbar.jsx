@@ -20,6 +20,10 @@ const Navbar = () => {
     navigate("/dashboard");
   }
 
+  const navigateProfile = () => {
+    navigate("/profile")
+  }
+
   return (
     <div className="navbar bg-base-100　z-auto">
       {currentUser ? (
@@ -56,9 +60,9 @@ const Navbar = () => {
               <li>
                 <a>Team</a>
               </li>
-              {/* <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li> */}
+              <li>
+                <button onClick={navigateProfile}>Profile</button>
+              </li>
             </ul>
           </div>
         </div>

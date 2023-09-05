@@ -28,7 +28,6 @@ const SendMessage = () => {
     } catch (error) {
       console.log(error);
     }
-    // console.log(value);
     setValue(""); //make the textbox clean again
   };
 

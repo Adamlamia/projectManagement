@@ -9,14 +9,14 @@ import "@blocknote/core/style.css";
 const TextEditor = () => {
   const newSlashMenuItems = defaultReactSlashMenuItems;
 
-  const editor = useBlockNote(
-    { slashMenuItems: newSlashMenuItems },
-    {
+  const editor = useBlockNote({ 
+    slashMenuItems: newSlashMenuItems,
+    
       editorDOMAttributes: {
         class: "textEditorStyle",
       },
-    }
-  );
+    
+    });
   return (
       <div>
         <BlockNoteView editor={editor} />

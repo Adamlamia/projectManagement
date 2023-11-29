@@ -1,5 +1,6 @@
 import React from "react";
 
+/* Task list on the right in dashboard */
 const Material = () => {
   return (
     <div className="card w-full bg-base-100 shadow-xl ">

@@ -18,11 +18,9 @@ const TextEditor = () => {
     }
   );
   return (
-    <div placeholder="Bio">
       <div>
         <BlockNoteView editor={editor} />
       </div>
-    </div>
   );
 };
 

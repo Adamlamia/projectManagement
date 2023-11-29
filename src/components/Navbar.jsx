@@ -67,12 +67,13 @@ const Navbar = () => {
               <li>
                 <button onClick={navigateProject}>
                   Project
-                  </button>
+                </button>
               </li>
               <li>
-              <button onClick={navigateTeam}>
+                <button onClick={navigateTeam}>
                   Team
-                  </button>              </li>
+                </button>
+              </li>
               <li>
                 <button onClick={navigateProfile}>Profile</button>
               </li>

@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-import Dashboard from "../pages/Dashboard";
 import ChatBox from "./ChatBox";
 import SendMessage from "./SendMessage";
-import Project from "../pages/Project";
-import Team from "../pages/Team";
 
 const Navbar = () => {
   const { currentUser, logout } = UserAuth();
@@ -35,7 +32,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="navbar bg-base-100　z-auto">
+    <div className="navbar bg-base-100">
       {currentUser ? (
         <div className="navbar-start">
           <div className="dropdown">
@@ -57,7 +54,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content absolute z-[1] mt-3 p-2 shadow-2xl bg-base-200 rounded-box w-52"
             >
               <li>
                 <button onClick={navigateDashboard}>
@@ -123,8 +120,8 @@ const Navbar = () => {
                 </label>
               </div>
               <div className="drawer-side">
-                <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
-                <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
+                <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+                <ul className="menu absolute z-[1] p-4 w-80 h-full bg-base-200 text-base-content">
                   <div className="absolute inset-x bottom-2">
                     <ChatBox />
                     <SendMessage />

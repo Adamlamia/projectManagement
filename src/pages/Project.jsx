@@ -1,48 +1,49 @@
-import React, { useState } from "react";
-import NewProject from "../components/NewProject"; // Import the NewProject component
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import NewProject from "../components/NewProject";
+import ProjectDetails from "../components/ProjectDetail";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../firebase";
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
-  const [showNewProjectModal, setShowNewProjectModal] = useState(false);
+  const [showNewProjectForm, setShowNewProjectForm] = useState(false);
 
-  const handleNewProjectClick = () => {
-    setShowNewProjectModal(true);
+  const toggleNewProjectForm = () => {
+    setShowNewProjectForm(!showNewProjectForm);
   };
 
-  const handleNewProjectClose = () => {
-    setShowNewProjectModal(false);
-  };
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "projects"));
+        const projectsData = [];
+        querySnapshot.forEach((doc) => {
+          projectsData.push({ id: doc.id, ...doc.data() });
+        });
+        setProjects(projectsData);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
 
-  const handleProjectCreated = (newProject) => {
-    setProjects([...projects, newProject]);
-  };
+    fetchProjects();
+  }, []);
 
   return (
-    <div className="flex w-full mb-2 px-2">
-      <button
-        onClick={handleNewProjectClick}
-        className="bg-green-500 text-white rounded-lg px-5 py-2"
-      >
-        New Project
-      </button>
+    <div>
+      {/* Button to toggle the display of the new project form */}
+      <button onClick={toggleNewProjectForm}>Create New Project</button>
 
-      {showNewProjectModal && (
-        <NewProject
-          onClose={handleNewProjectClose}
-          onProjectCreated={handleProjectCreated}
-        />
-      )}
+      {/* Display a list of projects as buttons */}
+      {projects.map((project) => (
+        <Link key={project.id} to={`/project/${project.id}`}>
+          <button>{project.name}</button>
+        </Link>
+      ))}
 
-      <div className="mt-4">
-        <h2 className="text-2xl font-semibold mb-4">Projects</h2>
-        <ul>
-          {projects.map((project) => (
-            <li key={project.id}>
-              <a href={`/project/${project.id}`}>{project.name}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* Display the new project form based on the state */}
+      {showNewProjectForm && <NewProject />}
     </div>
   );
 };

@@ -1,21 +1,81 @@
-import React from "react";
-import TextEditor from "../components/TextEditor";
-import Material from "../components/Material";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import NewTeam from "../components/NewTeam"; // Adjust the path accordingly
+import TeamDetail from "../components/TeamDetail";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../firebase";
+import { fetchData } from '../context/FetchData'; // Adjust the path accordingly
+
+// ... (other imports remain the same)
 
 const Team = () => {
+  const [teams, setTeams] = useState([]);
+  const [showNewTeamForm, setShowNewTeamForm] = useState(false);
+
+  const toggleNewTeamForm = () => {
+    setShowNewTeamForm(!showNewTeamForm);
+  };
+
+  // Usage for fetching teams
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teamsData = await fetchData(db, "teams");
+        setTeams(teamsData);
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams();
+  }, []);
+
   return (
-    <div className="flex w-full mb-2 px-2">
-      <div className="flex grid h-full w-4/5 pl-2 card place-items-center">
-        <h2>HelloTeam</h2>
+    <div>
+      {/* Button to toggle the display of the new team form */}
+      <button
+        className="btn btn-active btn-primary m-3"
+        onClick={toggleNewTeamForm}
+      >
+        Create New Team
+      </button>
+
+      {/* Display a list of teams as buttons */}
+      <div className="overflow-x-auto">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Members</th> {/* New column for Members */}
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {teams.map((team, index) => (
+              <tr key={team.id}>
+                <th>{index + 1}</th>
+                <td>{team.teamName}</td>
+                <td>{team.teamDescription}</td>
+                <td>{team.teamMembers ? team.teamMembers.join(", ") : ""}</td> {/* Check if teamMembers exists */}
+                <td>
+                  <Link to={`/team/${team.id}`}>
+                    <button>Open</button>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <div className="divider px-2"></div>
-      <div className="grid h-screen w-1/5 card bg-base-300 rounded-b-lg place-items-center">
-        <div className="mx-2">
-          <Material />
-        </div>
-      </div>
+
+      {/* Display the new team form based on the state */}
+      {showNewTeamForm && <NewTeam />}
     </div>
   );
 };
 
 export default Team;
+

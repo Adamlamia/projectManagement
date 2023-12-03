@@ -115,12 +115,6 @@ const Dashboard = () => {
         </div>
         <TextEditor />
       </div>
-      <div className="divider px-2"></div>
-      <div className="relative grid h-screen w-1/5 card bg-base-300 rounded-b-lg place-items-center">
-        <div className="mx-2">
-          <Material />
-        </div>
-      </div>
     </div>
   );
 };

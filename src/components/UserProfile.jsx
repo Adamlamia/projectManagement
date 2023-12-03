@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
 import { db } from "../firebase";
+import { fetchData } from "../context/FetchData";
 
 const UserProfile = () => {
   const [userName, setUserName] = useState("");
@@ -11,14 +12,16 @@ const UserProfile = () => {
   const [additionalId, setAdditionalId] = useState("");
   const { currentUser } = UserAuth();
 
+  // Usage for fetching user profile
   useEffect(() => {
-    // Retrieve user information from Firebase
     const fetchUserProfile = async () => {
       try {
-        const userProfileRef = doc(db, "userProfile", currentUser.uid);
-        const userProfileSnapshot = await getDoc(userProfileRef);
-        if (userProfileSnapshot.exists()) {
-          const userProfileData = userProfileSnapshot.data();
+        const userProfileData = await fetchData(
+          db,
+          "userProfile",
+          currentUser.uid
+        );
+        if (userProfileData) {
           setUserName(userProfileData.userName);
           setUserEmail(userProfileData.userEmail);
           setUserMatrixNumber(userProfileData.userMatrixNumber);
@@ -102,7 +105,10 @@ const UserProfile = () => {
             placeholder="Enter Additional ID"
           />
         </label> */}
-        <button type="submit" className="bg-blue-500 text-white rounded-lg px-5 py-2 mt-4">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white rounded-lg px-5 py-2 mt-4"
+        >
           Save Changes
         </button>
       </form>

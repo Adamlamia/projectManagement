@@ -32,17 +32,7 @@ function App() {
               <Project />
             </PrivateRoute>
           }
-        >
-          {/* Nested route for project details */}
-          <Route
-            path=":projectId/*"
-            element={
-              <PrivateRoute>
-                <ProjectDetails />
-              </PrivateRoute>
-            }
-          />
-        </Route>
+        />
         <Route
           path="/team"
           element={

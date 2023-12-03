@@ -1,3 +1,4 @@
+// App.jsx
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
@@ -7,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Team from "./pages/Team";
 import Project from "./pages/Project";
+import ProjectDetails from "./components/ProjectDetail"; // Import ProjectDetails
 
 function App() {
   return (
@@ -26,10 +28,21 @@ function App() {
           path="/project"
           element={
             <PrivateRoute>
+              {/* Render Project component as a layout for nested routes */}
               <Project />
             </PrivateRoute>
           }
-        />
+        >
+          {/* Nested route for project details */}
+          <Route
+            path=":projectId/*"
+            element={
+              <PrivateRoute>
+                <ProjectDetails />
+              </PrivateRoute>
+            }
+          />
+        </Route>
         <Route
           path="/team"
           element={

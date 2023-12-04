@@ -49,21 +49,22 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route 
-          path="/project/:projectId" 
+        <Route
+          path="/project/:projectId/*"
           element={
             <PrivateRoute>
               <ProjectDetails />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/team/:teamId" 
+
+        <Route
+          path="/team/:teamId/*"
           element={
             <PrivateRoute>
               <TeamDetails />
             </PrivateRoute>
-          } 
+          }
         />
       </Routes>
     </AuthProvider>

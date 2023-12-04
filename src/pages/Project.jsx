@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NewProject from "../components/NewProject";
-import ProjectDetails from "../components/ProjectDetail";
-import { collection, getDocs } from "@firebase/firestore";
 import { db } from "../firebase";
 import { fetchData } from '../context/FetchData'; // Adjust the path accordingly
 

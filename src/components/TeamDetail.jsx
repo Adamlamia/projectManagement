@@ -5,21 +5,21 @@ import { doc, getDoc } from '@firebase/firestore';
 import { db } from '../firebase';
 import TextEditor from './TextEditor'; // If you have a TextEditor component for team details
 
-const TeamDetail = () => {
+const TeamDetails = () => {
   const { teamId } = useParams();
-  const [teamDetails, setTeamDetail] = useState(null);
+  const [teamDetails, setTeamDetails] = useState(null);
 
   useEffect(() => {
-    const fetchTeamDetail = async () => {
+    const fetchTeamDetails = async () => {
       try {
         const teamDoc = await getDoc(doc(db, 'teams', teamId));
-        setTeamDetail(teamDoc.data());
+        setTeamDetails(teamDoc.data());
       } catch (error) {
         console.error('Error fetching team details:', error);
       }
     };
 
-    fetchTeamDetail();
+    fetchTeamDetails();
   }, [teamId]);
 
   return (
@@ -46,4 +46,4 @@ const TeamDetail = () => {
   );
 };
 
-export default TeamDetail;
+export default TeamDetails;

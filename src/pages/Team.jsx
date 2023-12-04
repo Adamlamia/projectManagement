@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import NewTeam from "../components/NewTeam"; // Adjust the path accordingly
-import TeamDetail from "../components/TeamDetail";
-import { collection, getDocs } from "@firebase/firestore";
+import NewTeam from "../components/NewTeam";
 import { db } from "../firebase";
-import { fetchData } from '../context/FetchData'; // Adjust the path accordingly
-
-// ... (other imports remain the same)
+import { fetchData } from '../context/FetchData';
 
 const Team = () => {
   const [teams, setTeams] = useState([]);

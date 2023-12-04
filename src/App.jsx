@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Team from "./pages/Team";
 import Project from "./pages/Project";
+import ProjectDetails from "./components/ProjectDetail";
+import TeamDetails from "./components/TeamDetail";
 
 function App() {
   return (
@@ -46,6 +48,22 @@ function App() {
               <Profile />
             </PrivateRoute>
           }
+        />
+        <Route 
+          path="/project/:projectId" 
+          element={
+            <PrivateRoute>
+              <ProjectDetails />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/team/:teamId" 
+          element={
+            <PrivateRoute>
+              <TeamDetails />
+            </PrivateRoute>
+          } 
         />
       </Routes>
     </AuthProvider>

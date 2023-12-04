@@ -29,6 +29,7 @@ const ProjectDetails = () => {
         <div>
           <h2>{projectDetails.name}</h2>
           <p>{projectDetails.description}</p>
+          <TextEditor projectId={projectId} />
           {/* Add other project details as needed */}
 
           {/* Nested routes for project details */}

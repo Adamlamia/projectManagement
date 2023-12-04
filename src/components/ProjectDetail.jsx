@@ -21,29 +21,27 @@ const ProjectDetails = () => {
     fetchProjectDetails();
   }, [projectId]);
 
-  return (
-    <div>
-      {/* Display project details */}
-      {projectDetails && (
-        <div>
-          <h2>{projectDetails.name}</h2>
-          <p>{projectDetails.description}</p>
+return (
+  <div>
+    {/* Display project details */}
+    {projectDetails && (
+      <div>
+        <h2>{projectDetails.name}</h2>
+        <p>{projectDetails.description}</p>
 
-          {/* Integrated BlockNote editor */}
-          <TextEditor projectId={projectId} />
+        {/* Integrated BlockNote editor */}
+        <TextEditor projectId={projectId} />
 
-          {/* Nested routes for project details */}
-          <Routes>
-            <Route
-              path="/"
-              element={<Outlet>Project details main page</Outlet>}
-            />
-            {/* Add other routes as needed */}
-          </Routes>
-        </div>
-      )}
-    </div>
-  );
+        {/* Nested routes for project details */}
+        <Routes>
+          <Route path="/" element={<Outlet>Project details main page</Outlet>} />
+          {/* Add other routes as needed */}
+        </Routes>
+      </div>
+    )}
+  </div>
+);
+
 };
 
 export default ProjectDetails;

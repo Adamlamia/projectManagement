@@ -1,53 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
-import { doc, getDoc, setDoc } from "@firebase/firestore";
+import { doc, setDoc, getDoc } from "@firebase/firestore";
 import "@blocknote/core/style.css";
 import { db } from "../firebase"; // Assuming you have a file exporting your Firebase instance
 
-
-const TextEditor = ({ currentUser }) => {
+const TextEditor = ({ projectId }) => {
   const editor = useBlockNote({});
   const [blocks, setBlocks] = useState([]);
-  const [editorContent, setEditorContent] = useState([]);
 
   useEffect(() => {
-    // Fetch editor content when the component mounts
-    const fetchEditorContent = async () => {
+    // Fetch content from Firebase when the component mounts
+    const fetchContent = async () => {
       try {
-        // Check if currentUser is defined before accessing its properties
-        if (currentUser && currentUser.uid) {
-          const userDoc = await getDoc(doc(db, "userProfile", currentUser.uid));
-          const userData = userDoc.data();
-          if (userData && userData.editorContent) {
-            setEditorContent(userData.editorContent);
-            // Set the editor content
-            editor.setContent(userData.editorContent);
-          }
+        const projectDoc = await getDoc(doc(db, "projects", projectId));
+        const projectData = projectDoc.data();
+        if (projectData && projectData.editorContent) {
+          // Set the editor content if it exists in the database
+          editor.setContent(projectData.editorContent);
         }
       } catch (error) {
-        console.error("Error fetching editor content:", error);
+        console.error("Error fetching content:", error);
       }
     };
-  
-    fetchEditorContent();
-  }, [currentUser, editor]);
-  
+
+    fetchContent();
+  }, [editor, projectId]);
 
   const handleSave = async () => {
+  // Fetch the existing project data from Firebase
+  try {
+    const projectDoc = await getDoc(doc(db, "projects", projectId));
+    const existingProjectData = projectDoc.data();
+
     // Get the current content of the editor
     const currentContent = editor.topLevelBlocks;
 
-    // Update or add the content to Firebase
-    try {
-      await setDoc(doc(db, "userProfile", currentUser.uid), {
-        ...editorContent,
-        editorContent: currentContent,
-      });
-      console.log("Content saved successfully!");
-    } catch (error) {
-      console.error("Error saving content:", error);
-    }
-  };
+    // Update or add the content to Firebase, preserving existing fields
+    await setDoc(doc(db, "projects", projectId), {
+      ...existingProjectData,
+      editorContent: currentContent,
+    });
+
+    console.log("Content saved successfully!");
+  } catch (error) {
+    console.error("Error saving content:", error);
+  }
+};
+
 
   return (
     <div>

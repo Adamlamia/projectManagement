@@ -27,7 +27,7 @@ const Login = () => {
           <h1 className="text-5xl font-bold">Login Page</h1>
           <p className="py-6">
             Join the Project Management tools for Students, Teachers and
-            Clients.
+            Supervisors.
           </p>
           <button onClick={handleLogin} className="btn btn-primary">
             Login With Google

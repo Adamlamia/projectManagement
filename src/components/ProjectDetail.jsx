@@ -1,11 +1,11 @@
-// ProjectDetails.js
 import React, { useEffect, useState } from "react";
-import { useParams, Routes, Route, Outlet } from "react-router-dom";
+import { useParams, Routes, Route, Outlet, Link } from "react-router-dom";
 import { doc, getDoc } from "@firebase/firestore";
 import { db } from "../firebase";
 import TextEditor from "./TextEditor";
-import ProjectTask from "./ProjectTask";
-import TaskList from "./TaskList"; // Import the new TaskList component
+import TaskList from "./TaskList";
+import NewTask from "./NewTask"; // Import the NewTask component
+import EditTask from "./EditTask"; // Import the EditTask component
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
@@ -23,6 +23,19 @@ const ProjectDetails = () => {
 
     fetchProjectDetails();
   }, [projectId]);
+
+  // State to manage the display of NewTask and EditTask forms
+  const [showNewTaskForm, setShowNewTaskForm] = useState(false);
+  const [editTaskId, setEditTaskId] = useState(null);
+
+  const toggleNewTaskForm = () => {
+    setShowNewTaskForm(!showNewTaskForm);
+  };
+
+  const handleEditTask = (taskId) => {
+    setEditTaskId(taskId);
+    setShowNewTaskForm(true);
+  };
 
   return (
     <div>
@@ -44,12 +57,29 @@ const ProjectDetails = () => {
             </Routes>
           </div>
           <div className="divider divider-horizontal">OR</div>
-          {""}
-          <div className="grid w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center">
-            <ProjectTask projectID={projectId} />
-            {/* Display the TaskList component */}
-            <TaskList projectId={projectId} />
-          </div>
+          {showNewTaskForm ? (
+            // Display NewTask or EditTask form based on the state
+            <div className="grid w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center">
+              {editTaskId ? (
+                <EditTask
+                  taskId={editTaskId}
+                  toggleForm={toggleNewTaskForm}
+                />
+              ) : (
+                <NewTask
+                  projectId={projectId}
+                  toggleForm={toggleNewTaskForm}
+                />
+              )}
+            </div>
+          ) : (
+            // Display TaskList and options to create new task
+            <div className="grid w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center">
+              <h3>Task List</h3>
+              <TaskList projectId={projectId} handleEditTask={handleEditTask} />
+              <button onClick={toggleNewTaskForm}>Create New Task</button>
+            </div>
+          )}
         </div>
       )}
     </div>

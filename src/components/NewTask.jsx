@@ -6,6 +6,8 @@ const NewTask = ({ projectId, toggleForm }) => {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [assignedName, setAssignedName] = useState("");
+  const [completion, setCompletion] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleCreateTask = async () => {
     try {
@@ -18,6 +20,7 @@ const NewTask = ({ projectId, toggleForm }) => {
         title: taskTitle,
         description: taskDescription,
         assignedName: assignedName,
+        completion: completion, // Set completion as false by default
       };
 
       // Add task to the "tasks" subcollection under the specified project
@@ -32,6 +35,9 @@ const NewTask = ({ projectId, toggleForm }) => {
       toggleForm();
     } catch (error) {
       console.error("Error creating task:", error);
+      setError("Failed to create task. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 

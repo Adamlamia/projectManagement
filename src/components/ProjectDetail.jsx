@@ -11,6 +11,8 @@ import EditTask from "./EditTask"; // Import the EditTask component
 const ProjectDetails = () => {
   const { projectId } = useParams();
   const [projectDetails, setProjectDetails] = useState(null);
+  const [showNewTaskForm, setShowNewTaskForm] = useState(false);
+  const [editTaskId, setEditTaskId] = useState(null);
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -25,12 +27,9 @@ const ProjectDetails = () => {
     fetchProjectDetails();
   }, [projectId]);
 
-  // State to manage the display of NewTask and EditTask forms
-  const [showNewTaskForm, setShowNewTaskForm] = useState(false);
-  const [editTaskId, setEditTaskId] = useState(null);
-
   const toggleNewTaskForm = () => {
     setShowNewTaskForm(!showNewTaskForm);
+    setEditTaskId(null); // Reset editTaskId when toggling the form
   };
 
   const handleEditTask = (taskId) => {
@@ -91,28 +90,33 @@ const ProjectDetails = () => {
             </Routes>
           </div>
           <div className="divider divider-horizontal">OR</div>
-          {showNewTaskForm ? (
-            // Display NewTask or EditTask form based on the state
-            <div className="grid w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center p-4">
-              {editTaskId ? (
-                <EditTask taskId={editTaskId} toggleForm={toggleNewTaskForm} />
-              ) : (
-                <NewTask projectId={projectId} toggleForm={toggleNewTaskForm} />
-              )}
+          <div className="flex w-3/8 h-screen flex-grow card bg-base-300 rounded-box place-items-center p-4">
+            <h3>Task List</h3>
+            <div className="flex w-fill bg-base-200 rounded-box p-4">
+              <TaskList projectId={projectId} handleEditTask={handleEditTask} />
             </div>
-          ) : (
-            // Display TaskList and options to create new task
-            <div className="flex w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center p-4">
-              <h3>Task List</h3>
-              <div className="flex w-fill bg-base-200 rounded-box p-4">
-                <TaskList
-                  projectId={projectId}
-                  handleEditTask={handleEditTask}
-                />
-                <button onClick={toggleNewTaskForm}>Create New Task</button>
+            <button
+              className="btn btn-active btn-primary m-3"
+              onClick={toggleNewTaskForm}
+            >
+              Create New Task
+            </button>
+            {showNewTaskForm && (
+              <div className="card bg-base-300 rounded-box place-items-center p-4">
+                {editTaskId ? (
+                  <EditTask
+                    taskId={editTaskId}
+                    toggleForm={toggleNewTaskForm}
+                  />
+                ) : (
+                  <NewTask
+                    projectId={projectId}
+                    toggleForm={toggleNewTaskForm}
+                  />
+                )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
     </div>

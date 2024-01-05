@@ -57,7 +57,7 @@ const TextEditor = ({ projectId }) => {
       <button onClick={handleSave}>Save</button>
 
       {/* Display JSON representation of blocks */}
-      <pre>{JSON.stringify(blocks, null, 2)}</pre>
+      
     </div>
   );
 };

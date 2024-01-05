@@ -25,15 +25,34 @@ const TaskList = ({ projectId, handleEditTask }) => {
   }, [projectId]);
 
   return (
-    <div>
-      <h3>Task List</h3>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id} onClick={() => handleEditTask(task.id)}>
-            {task.title} - {task.description}
-          </li>
-        ))}
-      </ul>
+    <div className="overflow-x-auto">
+      <table className="table">
+        {/* head */}
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks.map((task, index) => (
+            <tr key={task.id}>
+              <td>{index + 1}</td>
+              <td>{task.title}</td>
+              <td>{task.description}</td>
+              <td>
+                <button onClick={() => handleEditTask(task.id)}>Edit</button>
+                <label>
+                  <input type="checkbox" className="checkbox" />
+                  Mark as Complete
+                </label>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

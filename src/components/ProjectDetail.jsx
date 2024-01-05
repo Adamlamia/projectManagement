@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useParams, Routes, Route, Outlet, Link } from "react-router-dom";
 import { doc, getDoc } from "@firebase/firestore";
@@ -42,9 +43,13 @@ const ProjectDetails = () => {
       {/* Display project details */}
       {projectDetails && (
         <div className="flex w-full">
-          <div className="grid w-3/4 h-screen flex card bg-base-300 rounded-box place-items-center">
-            <h2>{projectDetails.name}</h2>
-            <p>{projectDetails.description}</p>
+          <div className="flex w-3/4 h-screen flex card bg-base-300 rounded-box place-items-center">
+            <div className="grid rounded m-2  place-content-center">
+              <h2>{projectDetails.name}</h2>
+            </div>
+            <div className="grid rounded m-2  place-content-center">
+              <p>{projectDetails.description}</p>
+            </div>
             {/* Integrated BlockNote editor */}
             <TextEditor projectId={projectId} />
             {/* Nested routes for project details */}
@@ -61,20 +66,14 @@ const ProjectDetails = () => {
             // Display NewTask or EditTask form based on the state
             <div className="grid w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center">
               {editTaskId ? (
-                <EditTask
-                  taskId={editTaskId}
-                  toggleForm={toggleNewTaskForm}
-                />
+                <EditTask taskId={editTaskId} toggleForm={toggleNewTaskForm} />
               ) : (
-                <NewTask
-                  projectId={projectId}
-                  toggleForm={toggleNewTaskForm}
-                />
+                <NewTask projectId={projectId} toggleForm={toggleNewTaskForm} />
               )}
             </div>
           ) : (
             // Display TaskList and options to create new task
-            <div className="grid w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center">
+            <div className="w-1/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center">
               <h3>Task List</h3>
               <TaskList projectId={projectId} handleEditTask={handleEditTask} />
               <button onClick={toggleNewTaskForm}>Create New Task</button>

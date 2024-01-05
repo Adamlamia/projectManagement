@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { UserAuth } from "../context/AuthContext";
 
 const Message = ({ message }) => {

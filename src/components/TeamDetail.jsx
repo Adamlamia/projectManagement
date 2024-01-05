@@ -1,4 +1,5 @@
 // TeamDetail.jsx
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams, Routes, Route, Outlet } from 'react-router-dom';
 import { doc, getDoc } from '@firebase/firestore';

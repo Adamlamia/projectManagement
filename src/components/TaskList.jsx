@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "@firebase/firestore";
 import { db } from "../firebase";
 
 const TaskList = ({ projectId, handleEditTask }) => {
@@ -8,7 +8,6 @@ const TaskList = ({ projectId, handleEditTask }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        // Retrieve tasks from the "tasks" subcollection under the specified project
         const taskDocs = await getDocs(collection(db, "projects", projectId, "tasks"));
         const taskData = taskDocs.docs.map((doc) => ({
           id: doc.id,
@@ -23,6 +22,26 @@ const TaskList = ({ projectId, handleEditTask }) => {
 
     fetchTasks();
   }, [projectId]);
+
+  const handleCheckboxChange = async (taskId, currentCompletion) => {
+    try {
+      // Toggle the completion status
+      const updatedCompletion = !currentCompletion;
+
+      // Update the task document with the new completion status
+      const taskDocRef = doc(db, "projects", projectId, "tasks", taskId);
+      await updateDoc(taskDocRef, { completion: updatedCompletion });
+
+      // Update the local state with the updated completion status
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, completion: updatedCompletion } : task
+        )
+      );
+    } catch (error) {
+      console.error("Error updating completion status:", error);
+    }
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -45,7 +64,12 @@ const TaskList = ({ projectId, handleEditTask }) => {
               <td>
                 <button onClick={() => handleEditTask(task.id)}>Edit</button>
                 <label>
-                  <input type="checkbox" className="checkbox" />
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    checked={task.completion}
+                    onChange={() => handleCheckboxChange(task.id, task.completion)}
+                  />
                   Mark as Complete
                 </label>
               </td>

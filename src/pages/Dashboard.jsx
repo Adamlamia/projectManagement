@@ -5,7 +5,7 @@ import Material from "../components/Material";
 const Dashboard = () => {
   return (
     <div className="flex w-full mb-2 px-2">
-      <div className="flex grid h-full w-4/5 pl-2 card place-items-center">
+      <div className="flex grid h-full pl-2 card place-items-center">
         <div>
           <div className="grid rounded m-2  place-content-center">
             <div className="stats bg-primary text-primary-content">

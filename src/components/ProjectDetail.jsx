@@ -89,7 +89,7 @@ const ProjectDetails = () => {
               {/* Add other routes as needed */}
             </Routes>
           </div>
-          <div className="divider divider-horizontal">OR</div>
+          <div className="divider divider-horizontal"></div>
           <div className="flex w-3/8 h-screen flex-grow card bg-base-300 rounded-box place-items-center p-4">
             <h3>Task List</h3>
             <div className="flex w-fill bg-base-200 rounded-box p-4">

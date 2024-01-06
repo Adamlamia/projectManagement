@@ -29,7 +29,7 @@ const Project = () => {
   }, []);
 
   return (
-    <div>
+    <div >
       {/* Button to toggle the display of the new project form */}
       <button
         className="btn btn-active btn-primary m-3"

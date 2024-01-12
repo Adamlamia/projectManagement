@@ -32,7 +32,7 @@ const ProjectStatus = () => {
     <div>
       {projects.map((project) => (
         <div key={project.id} className="collapse collapse-arrow bg-base-200">
-          <input type="radio" name={`my-accordion-${project.id}`} />
+          <input type="radio" name="my-accordion-2" />
           <div className="collapse-title text-xl font-medium">
             <div className="grid rounded m-2 place-content-center">
               <div className="stats bg-primary text-primary-content">

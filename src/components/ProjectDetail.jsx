@@ -1,18 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useParams, Routes, Route, Outlet, Link } from "react-router-dom";
-import { doc, getDoc } from "@firebase/firestore";
+import { doc, getDoc, collection, getDocs, where, query } from "@firebase/firestore";
 import { db } from "../firebase";
 import TextEditor from "./TextEditor";
 import TaskList from "./TaskList";
-import NewTask from "./NewTask"; // Import the NewTask component
-import EditTask from "./EditTask"; // Import the EditTask component
+import NewTask from "./NewTask";
+import EditTask from "./EditTask";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
   const [projectDetails, setProjectDetails] = useState(null);
   const [showNewTaskForm, setShowNewTaskForm] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+  const [totalTasks, setTotalTasks] = useState(0);
+  const [completedTasks, setCompletedTasks] = useState(0);
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -24,18 +26,34 @@ const ProjectDetails = () => {
       }
     };
 
+    const fetchTaskCounts = async () => {
+      try {
+        const taskCollection = collection(db, "projects", projectId, "tasks");
+        const totalTasksQuery = await getDocs(taskCollection);
+        setTotalTasks(totalTasksQuery.size);
+
+        const completedTasksQuery = await getDocs(query(taskCollection, where("completion", "==", true)));
+        setCompletedTasks(completedTasksQuery.size);
+      } catch (error) {
+        console.error("Error fetching task counts:", error);
+      }
+    };
+
     fetchProjectDetails();
+    fetchTaskCounts();
   }, [projectId]);
 
   const toggleNewTaskForm = () => {
     setShowNewTaskForm(!showNewTaskForm);
-    setEditTaskId(null); // Reset editTaskId when toggling the form
+    setEditTaskId(null);
   };
 
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
     setShowNewTaskForm(true);
   };
+
+  const completionPercentage = totalTasks === 0 ? 0 : Math.floor((completedTasks / totalTasks) * 100);
 
   return (
     <div>
@@ -68,10 +86,10 @@ const ProjectDetails = () => {
               </div>
               <div className="stat">
                 <div className="stat-figure text-secondary"></div>
-                <div className="stat-value">86%</div>
+                <div className="stat-value">{completionPercentage}%</div>
                 <div className="stat-title">Tasks done</div>
                 <div className="stat-desc text-secondary">
-                  31 tasks remaining
+                {totalTasks - completedTasks} tasks remaining
                 </div>
               </div>
             </div>

@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  collection,
-  getDocs,
-  updateDoc,
-  doc,
-} from "@firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "@firebase/firestore";
 import { db } from "../firebase";
 import TaskList from "./TaskList";
 
@@ -34,16 +29,25 @@ const ProjectStatus = () => {
         <div key={project.id} className="collapse collapse-arrow bg-base-200">
           <input type="radio" name="my-accordion-2" />
           <div className="collapse-title text-xl font-medium">
-            <div className="grid rounded m-2 place-content-center">
-              <div className="stats bg-primary text-primary-content">
-                {/* Display project title under the "name" field */}
-                <div className="stat">
-                  <div className="stat-title">Project Title</div>
-                  <div className="stat-value">{project.name}</div>
+            <div className="stats shadow w-full">
+              <div className="stat">
+                <div className="stat-title">Project</div>
+                <div className="stat-value text-primary">{project.name}</div>
+                <div className="stat-desc">Date of creation</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Team</div>
+                <div className="stat-value text-secondary">Team Name</div>
+                <div className="stat-desc">Jibberish</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-value">86%</div>
+                <div className="stat-title">Tasks done</div>
+                <div className="stat-desc text-secondary">
+                  31 tasks remaining
                 </div>
-
-                {/* Other stats... */}
-
               </div>
             </div>
           </div>

@@ -38,7 +38,7 @@ const ProjectStatus = () => {
 
               <div className="stat">
                 <div className="stat-title">Team</div>
-                <div className="stat-value text-secondary">Team Name</div>
+                <div className="stat-value text-secondary">{project.teamName}</div>
                 <div className="stat-desc">Jibberish</div>
               </div>
 

@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../firebase";
 
-const MemberList = () => {
+const MemberList = ({ teamId }) => {
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const memberDocs = await getDocs(collection(db, "teams", teamId, "members"));
+        const memberData = memberDocs.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setMembers(memberData);
+      } catch (error) {
+        console.error("Error fetching members:", error);
+      }
+    };
+
+    fetchMembers();
+  }, [teamId]);
+
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -14,27 +36,14 @@ const MemberList = () => {
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
-          <tr className="bg-base-200">
-            <th>1</th>
-            <td>Adam</td>
-            <td>Quality Control Specialist</td>
-            <td>2</td>
-          </tr>
-          {/* row 2 */}
-          <tr>
-            <th>2</th>
-            <td>Khairul</td>
-            <td>Desktop Support Technician</td>
-            <td>1</td>
-          </tr>
-          {/* row 3 */}
-          <tr>
-            <th>3</th>
-            <td>Lamia</td>
-            <td>Tax Accountant</td>
-            <td>4</td>
-          </tr>
+          {members.map((member, index) => (
+            <tr key={member.id}>
+              <td>{index + 1}</td>
+              <td>{member.name}</td>
+              <td>{member.role}</td>
+              <td>{member.taskNum}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

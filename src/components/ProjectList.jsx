@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const ProjectList = () => {
+import { collection, getDocs, where, query } from "@firebase/firestore";
+import { db } from "../firebase";
+
+const ProjectList = ({ teamName }) => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projectsQuery = query(
+          collection(db, "projects"),
+          where("teamName", "==", teamName)
+        );
+        const projectDocs = await getDocs(projectsQuery);
+        const projectData = projectDocs.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setProjects(projectData);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, [teamName]);
+
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -14,45 +42,19 @@ const ProjectList = () => {
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
-          <tr className="bg-base-200">
-            <th>1</th>
-            <td>Project Alpha</td>
-            <td>Quality Control Specialist</td>
-            <td>
-              {/* here link to get to the specific project
-              <Link to={`/project/${project.id}`}>
-                <button>Open</button>
-              </Link>
-              */}
-            </td>
-          </tr>
-          {/* row 2 */}
-          <tr>
-            <th>2</th>
-            <td>Project Beta</td>
-            <td>Desktop Support Technician</td>
-            <td>
-              {/* here link to get to the specific project
-              <Link to={`/project/${project.id}`}>
-                <button>Open</button>
-              </Link>
-              */}
-            </td>
-          </tr>
-          {/* row 3 */}
-          <tr>
-            <th>3</th>
-            <td>Project Charlie</td>
-            <td>Tax Accountant</td>
-            <td>
-              {/* here link to get to the specific project
-              <Link to={`/project/${project.id}`}>
-                <button>Open</button>
-              </Link>
-              */}
-            </td>
-          </tr>
+          {projects.map((project, index) => (
+            <tr key={project.id}>
+              <td>{index + 1}</td>
+              <td>{project.name}</td>
+              <td>{project.description}</td>
+              <td>
+                {/* Link to get to the specific project */}
+                <Link to={`/project/${project.id}`}>
+                  <button>Open</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

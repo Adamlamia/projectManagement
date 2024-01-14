@@ -4,6 +4,7 @@ import { useParams, Routes, Route, Outlet, Link } from "react-router-dom";
 import {
   doc,
   getDoc,
+  updateDoc,
   collection,
   getDocs,
   where,
@@ -52,21 +53,33 @@ const ProjectDetails = () => {
     fetchTaskCounts();
   }, [projectId]);
 
-  {
-    /* bring out new task form */
-  }
   const toggleNewTaskForm = () => {
     setShowNewTaskForm(!showNewTaskForm);
     setEditTaskId(null);
   };
 
-  {
-    /* bring out edit form */
-  }
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
     setShowNewTaskForm(true);
   };
+
+  const updateCompletionInDatabase = async () => {
+    try {
+      const projectRef = doc(db, "projects", projectId);
+      await updateDoc(projectRef, {
+        taskList: totalTasks - completedTasks,
+        completionPercentage:
+          totalTasks === 0 ? 0 : Math.floor((completedTasks / totalTasks) * 100),
+      });
+    } catch (error) {
+      console.error("Error updating completion in the database:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Call the updateCompletionInDatabase function whenever totalTasks or completedTasks change
+    updateCompletionInDatabase();
+  }, [totalTasks, completedTasks, projectId]);
 
   const completionPercentage =
     totalTasks === 0 ? 0 : Math.floor((completedTasks / totalTasks) * 100);

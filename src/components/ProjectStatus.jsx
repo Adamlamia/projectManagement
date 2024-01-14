@@ -43,10 +43,10 @@ const ProjectStatus = () => {
               </div>
 
               <div className="stat">
-                <div className="stat-value">86%</div>
+                <div className="stat-value">{project.completionPercentage}%</div>
                 <div className="stat-title">Tasks done</div>
                 <div className="stat-desc text-secondary">
-                  31 tasks remaining
+                  {project.taskList} tasks remaining
                 </div>
               </div>
             </div>

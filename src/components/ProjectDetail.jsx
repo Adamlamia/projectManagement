@@ -1,7 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useParams, Routes, Route, Outlet, Link } from "react-router-dom";
-import { doc, getDoc, collection, getDocs, where, query } from "@firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  where,
+  query,
+} from "@firebase/firestore";
 import { db } from "../firebase";
 import TextEditor from "./TextEditor";
 import TaskList from "./TaskList";
@@ -32,7 +39,9 @@ const ProjectDetails = () => {
         const totalTasksQuery = await getDocs(taskCollection);
         setTotalTasks(totalTasksQuery.size);
 
-        const completedTasksQuery = await getDocs(query(taskCollection, where("completion", "==", true)));
+        const completedTasksQuery = await getDocs(
+          query(taskCollection, where("completion", "==", true))
+        );
         setCompletedTasks(completedTasksQuery.size);
       } catch (error) {
         console.error("Error fetching task counts:", error);
@@ -43,17 +52,24 @@ const ProjectDetails = () => {
     fetchTaskCounts();
   }, [projectId]);
 
+  {
+    /* bring out new task form */
+  }
   const toggleNewTaskForm = () => {
     setShowNewTaskForm(!showNewTaskForm);
     setEditTaskId(null);
   };
 
+  {
+    /* bring out edit form */
+  }
   const handleEditTask = (taskId) => {
     setEditTaskId(taskId);
     setShowNewTaskForm(true);
   };
 
-  const completionPercentage = totalTasks === 0 ? 0 : Math.floor((completedTasks / totalTasks) * 100);
+  const completionPercentage =
+    totalTasks === 0 ? 0 : Math.floor((completedTasks / totalTasks) * 100);
 
   return (
     <div>
@@ -64,11 +80,20 @@ const ProjectDetails = () => {
             <div className="stats shadow">
               <div className="stat">
                 <div className="stat-figure text-primary">
-                <div className="stat-title">Project</div>
-                <div className="stat-value text-primary">
-                  {projectDetails.name}
+                  <div className="stat-title">Project</div>
+                  <div className="stat-value text-primary">
+                    {projectDetails.name}
+                  </div>
+                  <div className="stat-desc">Small thing below</div>
                 </div>
-                <div className="stat-desc">Small thing below</div>
+              </div>
+              <div className="stat">
+                <div className="stat-figure text-primary">
+                  <div className="stat-title">Team</div>
+                  <div className="stat-value text-primary">
+                    {projectDetails.teamName}
+                  </div>
+                  <div className="stat-desc">Small thing below</div>
                 </div>
               </div>
               <div className="stat">
@@ -76,7 +101,7 @@ const ProjectDetails = () => {
                 <div className="stat-value">{completionPercentage}%</div>
                 <div className="stat-title">Tasks done</div>
                 <div className="stat-desc text-secondary">
-                {totalTasks - completedTasks} tasks remaining
+                  {totalTasks - completedTasks} tasks remaining
                 </div>
               </div>
             </div>

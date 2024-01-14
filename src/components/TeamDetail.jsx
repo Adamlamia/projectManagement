@@ -56,7 +56,7 @@ const TeamDetails = () => {
                     </div>
                     <div className="collapse-content">
                     Member will be display similarly as the tasklist
-                      <MemberList />
+                      <MemberList teamId={teamId} />
                     </div>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ const TeamDetails = () => {
                     <div className="collapse-content">
                       <div>
                         check projects collection, find field labeled with current team name
-                        <ProjectList />
+                        <ProjectList teamName={teamDetails.teamName} />
                       </div>
                     </div>
                   </div>

@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NewProject from "../components/NewProject";
 import { db } from "../firebase";
-import { fetchData } from '../context/FetchData'; // Adjust the path accordingly
-
+import { fetchData } from "../context/FetchData"; // Adjust the path accordingly
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
@@ -29,7 +28,7 @@ const Project = () => {
   }, []);
 
   return (
-    <div >
+    <div>
       {/* Button to toggle the display of the new project form */}
       <button
         className="btn btn-active btn-primary m-3"
@@ -47,6 +46,7 @@ const Project = () => {
               <th></th>
               <th>Name</th>
               <th>Description</th>
+              <th>Team</th> {/* New column for Team */}
               <th></th>
             </tr>
           </thead>
@@ -56,6 +56,7 @@ const Project = () => {
                 <th>{index + 1}</th>
                 <td>{project.name}</td>
                 <td>{project.description}</td>
+                <td>{project.teamName}</td> {/* Check if team exists */}
                 <td>
                   <Link to={`/project/${project.id}`}>
                     <button>Open</button>

@@ -46,7 +46,7 @@ const TeamDetails = () => {
               <h2 className="card-title">{teamDetails.teamName}</h2>
               <p>{teamDetails.teamDescription}</p>
               <div className="flex w-full">
-                <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
+                <div className="grid h-20 flex-grow card  rounded-box place-items-center">
                   <div
                     tabIndex={0}
                     className="collapse border border-base-300 bg-base-200"
@@ -61,7 +61,7 @@ const TeamDetails = () => {
                   </div>
                 </div>
                 <div className="divider divider-horizontal"></div>
-                <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
+                <div className="grid h-20 flex-grow card  rounded-box place-items-center">
                   <div
                     tabIndex={0}
                     className="collapse border border-base-300 bg-base-200"

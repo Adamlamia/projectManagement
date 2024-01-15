@@ -1,6 +1,5 @@
 import React from "react";
 import TextEditor from "../components/TextEditor";
-import Material from "../components/Material";
 import ProjectStatus from "../components/ProjectStatus";
 
 const Dashboard = () => {

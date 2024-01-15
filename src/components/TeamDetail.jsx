@@ -41,7 +41,7 @@ const TeamDetails = () => {
               {/* Add more nested routes as needed */}
             </Routes>
           </div>
-          <div className="card flex-grow w-fit bg-neutral text-neutral-content ">
+          <div className="card flex-grow bg-neutral text-neutral-content ">
             <div className="card-body items-center text-center">
               <h2 className="card-title">{teamDetails.teamName}</h2>
               <p>{teamDetails.teamDescription}</p>

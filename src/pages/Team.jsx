@@ -28,7 +28,7 @@ const Team = () => {
 
   return (
     <div>
-      {/* Button to toggle the display of the new team form */}
+      {/* Button display of the new team form */}
       <button
         className="btn btn-active btn-primary m-3"
         onClick={toggleNewTeamForm}
@@ -36,7 +36,7 @@ const Team = () => {
         Create New Team
       </button>
 
-      {/* Display a list of teams as buttons */}
+      {/* Display a list of teams with buttons */}
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -45,7 +45,7 @@ const Team = () => {
               <th></th>
               <th>Name</th>
               <th>Description</th>
-              <th>Members</th> {/* New column for Members */}
+              <th>Members</th>
               <th></th>
             </tr>
           </thead>
@@ -67,7 +67,7 @@ const Team = () => {
         </table>
       </div>
 
-      {/* Display the new team form based on the state */}
+      {/* Display the new team form */}
       {showNewTeamForm && <NewTeam />}
     </div>
   );

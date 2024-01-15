@@ -97,7 +97,7 @@ const ProjectDetails = () => {
                   <div className="stat-value text-primary">
                     {projectDetails.name}
                   </div>
-                  <div className="stat-desc">Small thing below</div>
+                  <div className="stat-desc">{projectDetails.description}</div>
                 </div>
               </div>
               <div className="stat">
@@ -117,9 +117,6 @@ const ProjectDetails = () => {
                   {totalTasks - completedTasks} tasks remaining
                 </div>
               </div>
-            </div>
-            <div className="grid rounded m-2  place-content-center">
-              <p>{projectDetails.description}</p>
             </div>
             {/* Integrated BlockNote editor */}
             <TextEditor projectId={projectId} />

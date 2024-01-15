@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NewProject from "../components/NewProject";
 import { db } from "../firebase";
-import { fetchData } from "../context/FetchData"; // Adjust the path accordingly
+import { fetchData } from "../context/FetchData";
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
@@ -46,7 +46,7 @@ const Project = () => {
               <th></th>
               <th>Name</th>
               <th>Description</th>
-              <th>Team</th> {/* New column for Team */}
+              <th>Team</th>
               <th></th>
             </tr>
           </thead>
@@ -56,7 +56,7 @@ const Project = () => {
                 <th>{index + 1}</th>
                 <td>{project.name}</td>
                 <td>{project.description}</td>
-                <td>{project.teamName}</td> {/* Check if team exists */}
+                <td>{project.teamName}</td>
                 <td>
                   <Link to={`/project/${project.id}`}>
                     <button>Open</button>
@@ -68,7 +68,7 @@ const Project = () => {
         </table>
       </div>
 
-      {/* Display the new project form based on the state */}
+      {/* Display the new project form */}
       {showNewProjectForm && <NewProject />}
     </div>
   );

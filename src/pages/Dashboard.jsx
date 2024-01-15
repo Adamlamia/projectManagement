@@ -9,7 +9,6 @@ const Dashboard = () => {
         <div>
           <ProjectStatus />
         </div>
-        <TextEditor />
       </div>
     </div>
   );

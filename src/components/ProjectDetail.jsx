@@ -25,6 +25,7 @@ const ProjectDetails = () => {
   const [completedTasks, setCompletedTasks] = useState(0);
 
   useEffect(() => {
+    //Fetch ProjectDetail
     const fetchProjectDetails = async () => {
       try {
         const projectDoc = await getDoc(doc(db, "projects", projectId));
@@ -34,6 +35,7 @@ const ProjectDetails = () => {
       }
     };
 
+    // Count number of completion as true
     const fetchTaskCounts = async () => {
       try {
         const taskCollection = collection(db, "projects", projectId, "tasks");
@@ -77,7 +79,7 @@ const ProjectDetails = () => {
   };
 
   useEffect(() => {
-    // Call the updateCompletionInDatabase function whenever totalTasks or completedTasks change
+    // Call the updateCompletionInDatabase
     updateCompletionInDatabase();
   }, [totalTasks, completedTasks, projectId]);
 

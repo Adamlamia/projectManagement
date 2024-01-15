@@ -12,7 +12,7 @@ const UserProfile = () => {
   const [additionalId, setAdditionalId] = useState("");
   const { currentUser } = UserAuth();
 
-  // Usage for fetching user profile
+  // For fetching user profile
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {

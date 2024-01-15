@@ -25,7 +25,7 @@ const SendMessage = () => {
         uid,
       });
     } catch (error) {
-      console.log(error);
+      console.error("Error sending message:", error);
     }
     setValue(""); 
   };

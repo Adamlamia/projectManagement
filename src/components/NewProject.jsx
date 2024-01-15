@@ -40,7 +40,7 @@ const NewProject = () => {
       const projectData = {
         name: projectName,
         description: projectDescription,
-        teamName: selectedTeam, // Save teamName instead of team ID
+        teamName: selectedTeam,
       };
 
       await addDoc(collection(db, "projects"), projectData);

@@ -10,7 +10,7 @@ const Login = () => {
     try {
       await signinWithGoogle();
     } catch (error) {
-      console.log(error);
+      console.error("Error handle login:", error);
     }
   }
 

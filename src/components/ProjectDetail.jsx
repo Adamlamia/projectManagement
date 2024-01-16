@@ -175,7 +175,7 @@ const ProjectDetails = () => {
             </div>
             <div>
               <h3>File List</h3>
-              <FileList />
+              <FileList projectId={projectId}/>
             </div>
           </div>
         </div>

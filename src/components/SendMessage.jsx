@@ -7,7 +7,7 @@ const SendMessage = () => {
   const [value, setValue] = useState("");
   const { currentUser } = UserAuth();
 
-  const handleSendmessage = async (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
 
     if (value.trim() === "") {
@@ -27,12 +27,12 @@ const SendMessage = () => {
     } catch (error) {
       console.error("Error sending message:", error);
     }
-    setValue(""); 
+    setValue("");
   };
 
   return (
     <div className="">
-      <form onSubmit={handleSendmessage} className="flex">
+      <form onSubmit={handleSendMessage} className="flex">
         <input
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -42,7 +42,7 @@ const SendMessage = () => {
         />
         <button
           type="submit"
-          className="w-auto bg-gray-500 text-white rounded-r-lg px-5 text-sm"
+          className="btn btn-primary ml-2"
         >
           Send
         </button>

@@ -12,7 +12,8 @@
   "dependencies": {
     "@blocknote/core": "^0.8.5",
     "@blocknote/react": "^0.8.5",
-    "firebase": "^9.23.0",
+    "firebase": "^10.7.1",
+    "firebaseui": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1"

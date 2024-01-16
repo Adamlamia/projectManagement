@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut } from "firebase/auth";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signInWithEmailAndPassword, createUserWithEmailAndPassword , signOut } from "firebase/auth";
 import { createContext, useState, useContext, useEffect } from "react";
 import { auth } from "../firebase";
 
@@ -16,6 +16,26 @@ export const AuthProvider = ({children}) => {
         signInWithRedirect(auth, provider)
     }
 
+    const signinWithEmailPassword = async (email, password) => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            setCurrentUser(userCredential.user);
+        } catch (error) {
+            console.error("Error signing in with email and password:", error);
+            throw error;
+        }
+    }
+
+    const signupWithEmailPassword = async (email, password) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            setCurrentUser(userCredential.user);
+        } catch (error) {
+            console.error("Error signing up with email and password:", error);
+            throw error;
+        }
+    }
+
     //signout
     const logout = () => signOut(auth);
 
@@ -23,6 +43,8 @@ export const AuthProvider = ({children}) => {
         currentUser,
         setCurrentUser,
         signinWithGoogle,
+        signinWithEmailPassword,
+        signupWithEmailPassword,
         logout
     }
 

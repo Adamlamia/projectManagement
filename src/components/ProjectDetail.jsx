@@ -122,6 +122,7 @@ const ProjectDetails = () => {
             </div>
             {/* Integrated BlockNote editor */}
             <TextEditor projectId={projectId} />
+            {/* File uploader */}
             {/* Nested routes for project details */}
             <Routes>
               <Route

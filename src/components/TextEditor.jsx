@@ -27,37 +27,38 @@ const TextEditor = ({ projectId }) => {
   }, [editor, projectId]);
 
   const handleSave = async () => {
-  // Fetch the existing project data from Firebase
-  try {
-    const projectDoc = await getDoc(doc(db, "projects", projectId));
-    const existingProjectData = projectDoc.data();
+    // Fetch the existing project data from Firebase
+    try {
+      const projectDoc = await getDoc(doc(db, "projects", projectId));
+      const existingProjectData = projectDoc.data();
 
-    // Get the current content of the editor
-    const currentContent = editor.topLevelBlocks;
+      // Get the current content of the editor
+      const currentContent = editor.topLevelBlocks;
 
-    // Update or add the content to Firebase, preserving existing fields
-    await setDoc(doc(db, "projects", projectId), {
-      ...existingProjectData,
-      editorContent: currentContent,
-    });
+      // Update or add the content to Firebase, preserving existing fields
+      await setDoc(doc(db, "projects", projectId), {
+        ...existingProjectData,
+        editorContent: currentContent,
+      });
 
-    console.log("Content saved successfully!");
-  } catch (error) {
-    console.error("Error saving content:", error);
-  }
-};
-
+      console.log("Content saved successfully!");
+    } catch (error) {
+      console.error("Error saving content:", error);
+    }
+  };
 
   return (
-    <div>
-      {/* BlockNote editor view */}
-      <BlockNoteView editor={editor} />
+    <div className="w-96 w-auto">
+      <div className="card p-4">
+        {/* BlockNote editor view */}
+        <BlockNoteView editor={editor} />
+      </div>
 
-      {/* Save button */}
-      <button onClick={handleSave}>Save</button>
-
+      <div className="btn btn-neutral p-4">
+        {/* Save button */}
+        <button onClick={handleSave}>Save</button>
+      </div>
       {/* Display JSON representation of blocks */}
-      
     </div>
   );
 };

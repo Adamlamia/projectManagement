@@ -15,6 +15,8 @@ import TextEditor from "./TextEditor";
 import TaskList from "./TaskList";
 import NewTask from "./NewTask";
 import EditTask from "./EditTask";
+import UploadFile from "./UploadFile";
+import FileList from "./FileList";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
@@ -71,7 +73,9 @@ const ProjectDetails = () => {
       await updateDoc(projectRef, {
         taskList: totalTasks - completedTasks,
         completionPercentage:
-          totalTasks === 0 ? 0 : Math.floor((completedTasks / totalTasks) * 100),
+          totalTasks === 0
+            ? 0
+            : Math.floor((completedTasks / totalTasks) * 100),
       });
     } catch (error) {
       console.error("Error updating completion in the database:", error);
@@ -91,8 +95,8 @@ const ProjectDetails = () => {
       {/* Display project details */}
       {projectDetails && (
         <div className="flex w-full">
-          <div className="flex w-3/4 h-screen flex card bg-base-300 rounded-box place-items-center p-4">
-            <div className="stats shadow">
+          <div className="flex w-3/4 h-screen flex-grow card bg-base-300 rounded-box place-items-center p-4">
+            <div className="stats shadow p-4">
               <div className="stat">
                 <div className="stat-figure text-primary">
                   <div className="stat-title">Project</div>
@@ -120,9 +124,14 @@ const ProjectDetails = () => {
                 </div>
               </div>
             </div>
-            {/* Integrated BlockNote editor */}
-            <TextEditor projectId={projectId} />
-            {/* File uploader */}
+            <div className="min-h-32 max-h-max min-w-64 max-w-screen-md card bg-base-200 rounded-box place-items-center p-4">
+              {/* Integrated BlockNote editor */}
+              <TextEditor projectId={projectId} />
+            </div>
+            <div className="p-4">
+              {/* File uploader */}
+              <UploadFile projectId={projectId} />
+            </div>
             {/* Nested routes for project details */}
             <Routes>
               <Route
@@ -134,31 +143,40 @@ const ProjectDetails = () => {
           </div>
           <div className="divider divider-horizontal"></div>
           <div className="flex w-3/8 h-screen flex-grow card bg-base-300 rounded-box place-items-center p-4">
-            <h3>Task List</h3>
-            <div className="flex w-fill bg-base-200 rounded-box p-4">
-              <TaskList projectId={projectId} handleEditTask={handleEditTask} />
-            </div>
-            <button
-              className="btn btn-active btn-primary m-3"
-              onClick={toggleNewTaskForm}
-            >
-              Create New Task
-            </button>
-            {showNewTaskForm && (
-              <div className="card bg-base-300 rounded-box place-items-center p-4">
-                {editTaskId ? (
-                  <EditTask
-                    taskId={editTaskId}
-                    toggleForm={toggleNewTaskForm}
-                  />
-                ) : (
-                  <NewTask
-                    projectId={projectId}
-                    toggleForm={toggleNewTaskForm}
-                  />
-                )}
+            <div>
+              <h3>Task List</h3>
+              <div className="flex w-fill bg-base-200 rounded-box p-4">
+                <TaskList
+                  projectId={projectId}
+                  handleEditTask={handleEditTask}
+                />
               </div>
-            )}
+              <button
+                className="btn btn-active btn-primary m-3"
+                onClick={toggleNewTaskForm}
+              >
+                Create New Task
+              </button>
+              {showNewTaskForm && (
+                <div className="card bg-base-300 rounded-box place-items-center p-4">
+                  {editTaskId ? (
+                    <EditTask
+                      taskId={editTaskId}
+                      toggleForm={toggleNewTaskForm}
+                    />
+                  ) : (
+                    <NewTask
+                      projectId={projectId}
+                      toggleForm={toggleNewTaskForm}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+            <div>
+              <h3>File List</h3>
+              <FileList />
+            </div>
           </div>
         </div>
       )}
